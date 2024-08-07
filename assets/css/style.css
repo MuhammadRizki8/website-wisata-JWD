@@ -26,3 +26,7 @@ nav.d-flex {
   filter: blur(1px) brightness(70%);
   -webkit-filter: blur(1px) brightness(70%);
 }
+.card-img-top {
+  height: 200px; /* atau ukuran yang Anda inginkan */
+  object-fit: cover;
+}

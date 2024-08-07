@@ -6,8 +6,7 @@ $stmt = $pdo->query('SELECT * FROM paket_wisata');
 $packages = $stmt->fetchAll();
 ?>
 
-
-<?php include 'header.php';?>
+    <?php include 'header.php';?>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -19,7 +18,7 @@ $packages = $stmt->fetchAll();
                     <?php foreach ($packages as $package): ?>
                         <div class="col-md-6 mb-4">
                             <div class="card">
-                            <img alt="crypto" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ97z2Ylq_k-XnFoFrCGvfHHvebCPJL5SRO8Q&s">
+                                <img alt="<?= htmlspecialchars($package['nama']) ?>" src="<?= htmlspecialchars($package['image_url']) ?>" class="card-img-top img-fluid">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= htmlspecialchars($package['nama']) ?></h5>
                                     <p class="card-text"><?= htmlspecialchars($package['deskripsi']) ?></p>
@@ -32,11 +31,19 @@ $packages = $stmt->fetchAll();
                 </div>
             </div>
             
-            <!-- YouTube Video -->
+            <!-- YouTube Videos -->
             <div class="col-md-4">
-                <h2>Watch Our Promo Video</h2>
-                <div class="embed-responsive embed-responsive-16by9 mt-3">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/your_video_id" allowfullscreen></iframe>
+                <h2>Watch Our Promo Videos</h2>
+                <div class="row mt-3">
+                    <div class="col-12 mb-4">
+                        <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/4sdyBDSrzN4?si=17NC7GLlcUlzm73l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/MrnNFFBZgSo?si=bDp-sUN89BR8ttaA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                    </div>
                 </div>
             </div>
         </div>
