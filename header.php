@@ -18,7 +18,8 @@
                 <img src="assets/images/mcbsm30xjs0xm7pzi1wb.jpg" alt="Hero Image" class="img-fluid rounded hero-img" >
                 <!-- Header Text Overlay -->
                 <div class="header-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">
-                    <h1>Travel Booking Application</h1>
+                    <h1>TRAVELIND</h1>
+                    <h5>Pesan Paket Wisatamu Sekarang Juga!</h5>
                 </div>
             </div>
             <nav class="mt-2">
