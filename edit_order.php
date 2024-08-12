@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_pemesan = $_POST['nama_pemesan'];
     $no_telepon = $_POST['no_telepon'];
     $paket_id = $_POST['paket_id'];
+    $harga_tiket = $_POST['harga_tiket'];
 
     // Memeriksa layanan tambahan yang dipilih
     $layanan = [];
@@ -54,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Form pemesanan belum diisi lengkap.';
     } else {
         // Menghitung subtotal
-        $subtotal = (array_sum($layanan) + $package['harga']) * $durasi;
+        $subtotal = (array_sum($layanan) + $harga_tiket) * $durasi;
 
         // Menghitung total
         $total = $subtotal * $jumlah_peserta;
@@ -77,23 +78,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
     <form method="POST" class="mt-4 card p-4">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="paket_id" class="form-label">Pilih Paket Wisata</label>
-                <select class="form-select" id="paket_id" name="paket_id" required>
-                    <option value="">Pilih sebuah paket</option>
-                    <?php foreach ($all_packages as $pkg): ?>
-                        <option value="<?= htmlspecialchars($pkg['id']) ?>" data-harga="<?= htmlspecialchars($pkg['harga']) ?>" <?= ($pkg['id'] == $paket_id) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($pkg['nama']) ?> - Rp. <?= number_format($pkg['harga'], 2) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="harga_tiket" class="form-label">Harga Tiket</label>
-                <input type="text" class="form-control" id="harga_tiket" name="harga_tiket" readonly value="<?= 'Rp. ' . number_format($package['harga'], 2) ?>">
-            </div>
+        <div class="mb-3">
+            <label for="paket_id" class="form-label">Pilih Paket Wisata</label>
+            <select class="form-select" id="paket_id" name="paket_id" required>
+                <option value="">Pilih sebuah paket</option>
+                <?php foreach ($all_packages as $pkg): ?>
+                    <option value="<?= htmlspecialchars($pkg['id']) ?>" data-harga="<?= htmlspecialchars($pkg['harga']) ?>" <?= ($pkg['id'] == $paket_id) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($pkg['nama']) ?> - Rp. <?= number_format($pkg['harga'], 2) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
+
+        <input type="hidden" class="form-control" id="harga_tiket" name="harga_tiket" value="<?= $package ? $package['harga'] : 0 ?>">
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="tanggal_mulai" class="form-label">Tanggal Mulai</label>
@@ -139,41 +136,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li class="list-group-item">Total (Subtotal x Jumlah Peserta): <span id="rincian_total">Rp. 0</span></li>
             </ul>
         </div>
-        <div class="mb-3">
-            <label for="subtotal" class="form-label">Subtotal</label>
-            <input type="text" class="form-control" id="subtotal" name="subtotal" value="<?= 'Rp. ' . number_format($order['subtotal'], 2) ?>" readonly>
-        </div>
-        <div class="mb-3">
-            <label for="total" class="form-label">Total</label>
-            <input type="text" class="form-control" id="total" name="total" value="<?= 'Rp. ' . number_format($order['total'], 2) ?>" readonly>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
+        <div class="row d-flex justify-content-start gap-1">
+            <div class="col-auto p-0">
                 <button type="submit" class="btn btn-primary">Simpan perubahan</button>
             </div>
-            <div class="col-md-1">
+            <div class="col-auto p-0">
                 <button type="button" class="btn btn-danger" onclick="window.location.href='orders.php'">Batal</button>
             </div>
         </div>
+
     </form>
 </div>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script >
 $(document).ready(function () {
-  // Update harga tiket berdasarkan paket yang dipilih
-  $('#paket_id').on('change', function () {
-    let harga = $(this).find('option:selected').data('harga');
-    $('#harga_tiket').val('Rp. ' + new Intl.NumberFormat('id-ID').format(harga));
-    $('#rincian_harga_tiket').text('Rp. ' + new Intl.NumberFormat('id-ID').format(harga));
-    calculateSubtotal();
-  });
-
   // Perhitungan subtotal dan total
   $('#durasi, #jumlah_peserta').on('input', calculateSubtotal);
-  $('input[name="penginapan"], input[name="transportasi"], input[name="makanan"]').on('change', calculateSubtotal);
+  $('input[name="penginapan"], input[name="transportasi"], input[name="makanan"], #paket_id').on('change', calculateSubtotal);
 
   function calculateSubtotal() {
+    let harga = $('#paket_id').find('option:selected').data('harga') || 0;
     let durasi = parseFloat($('#durasi').val()) || 0;
     let jumlahPeserta = parseFloat($('#jumlah_peserta').val()) || 0;
     let hargaTiket = parseFloat($('#paket_id').find('option:selected').data('harga')) || 0;
@@ -182,18 +165,17 @@ $(document).ready(function () {
     $('input[type="checkbox"]:checked').each(function () {
       layanan += parseFloat($(this).val());
     });
-
     let subtotal = (hargaTiket + layanan) * durasi;
     let total = subtotal * jumlahPeserta;
 
-    $('#subtotal').val('Rp. ' + new Intl.NumberFormat('id-ID').format(subtotal));
-    $('#total').val('Rp. ' + new Intl.NumberFormat('id-ID').format(total));
-
-    // Update rincian
+    $('#harga_tiket').val(harga);
+    $('#rincian_harga_tiket').text('Rp. ' + new Intl.NumberFormat('id-ID').format(harga));
     $('#rincian_layanan').text('Rp. ' + new Intl.NumberFormat('id-ID').format(layanan));
     $('#rincian_subtotal').text('Rp. ' + new Intl.NumberFormat('id-ID').format(subtotal));
     $('#rincian_total').text('Rp. ' + new Intl.NumberFormat('id-ID').format(total));
   }
+
+  calculateSubtotal();
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

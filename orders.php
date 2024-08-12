@@ -18,7 +18,7 @@ $orders = $stmt->fetchAll();
     <h1 class="mt-4">Daftar Pesanan</h1>
     <a href="export_orders.php" class="btn btn-primary mb-3">Ekspor data</a>
     <table class="table table-striped mt-2">
-        <thead>
+        <thead class="table-success">
             <tr>
                 <th>ID</th>
                 <th>Nama Pemesan</th>
