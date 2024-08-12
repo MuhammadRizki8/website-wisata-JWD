@@ -1,6 +1,6 @@
 todo:
-- fix panel rincian perhitungan
 - modularisasi kode -> MVC
+- beres-beres dokumentasi, komentar, ngumpulin
 
 Repository ini berisi hasil capstone project program Junior Web Developer 
 
