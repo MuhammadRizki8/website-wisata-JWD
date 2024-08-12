@@ -54,20 +54,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$tanggal_mulai, $durasi, $jumlah_peserta, $subtotal, $total, $paket_id, $nama_pemesan, $no_telepon, $penginapan, $transportasi, $makanan]);
 
         // Redirect ke halaman daftar pesanan
-        header('Location: orders.php');
+        header('Location: orders.php?message=Order+added+successfully');
         exit();
     }
 }
 ?>
 
 <?php include 'header.php'; ?>
-<div class="container">
-    <h1 class="mt-5">Pesan Paket Wisata</h1>
+<div class="container col-lg-8">
+    <h1 class="mt-4">Pesan Paket Wisata</h1>
     <?php if ($error): ?>
         <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
-    <form method="POST" class="mt-4">
-        <div class="mb-3">
+    <form method="POST" class="mt-4 card p-4">
+        <div class="row">
+            <div class="col-md-6 mb-3">
             <label for="paket_id" class="form-label">Pilih Paket Wisata</label>
             <select class="form-select" id="paket_id" name="paket_id" required>
                 <option value="">Pilih sebuah paket</option>
@@ -75,6 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="<?= htmlspecialchars($pkg['id']) ?>" <?= ($pkg['id'] == $paket_id) ? 'selected' : '' ?>><?= htmlspecialchars($pkg['nama']) ?> - Rp. <?= number_format($pkg['harga'], 2) ?></option>
                 <?php endforeach; ?>
             </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="harga_tiket" class="form-label">Harga Tiket</label>
+                <input type="text" class="form-control" id="harga_tiket" name="harga_tiket" readonly>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -127,7 +133,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="total" class="form-label">Total</label>
             <input type="text" class="form-control" id="total" name="total" readonly>
         </div>
-        <button type="submit" class="btn btn-primary">Pesan</button>
+        <div class="row">
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Pesan</button>
+            </div>
+            <div class="col-md-1">
+            <button type="button" class="btn btn-danger" onclick="window.location.href='index.php'">Batal</button>
+            </div>
+        
+        </div>
+        
+
     </form>
 </div>
 <?php include 'footer.php'; ?>
