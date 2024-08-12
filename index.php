@@ -23,7 +23,7 @@ $packages = $stmt->fetchAll(); // Menyimpan hasil query ke dalam array $packages
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($package['nama']) ?></h5> <!-- Menampilkan nama paket wisata -->
                                 <p class="card-text"><?= htmlspecialchars($package['deskripsi']) ?></p> <!-- Menampilkan deskripsi paket wisata -->
-                                <p class="card-text"><strong>Harga mulai dari:</strong> Rp. <?= number_format($package['harga'], 2) ?></p> <!-- Menampilkan harga paket wisata -->
+                                <p class="card-text"><strong>Harga tiker:</strong> Rp. <?= number_format($package['harga'], 2) ?>/orang</p> <!-- Menampilkan harga paket wisata -->
                                 <!-- Link untuk memesan paket wisata -->
                                 <a href="booking.php?paket_id=<?= $package['id'] ?>" class="btn btn-primary">Booking sekarang</a>
                             </div>
@@ -36,7 +36,7 @@ $packages = $stmt->fetchAll(); // Menyimpan hasil query ke dalam array $packages
         <!-- Video Promo di YouTube -->
         <div class="col-md-4">
             <h2>Video Promo Kami</h2> <!-- Judul section video promo -->
-            <div class="row mt-3">
+            <div class="row mt-4">
                 <!-- Video Promo Pertama -->
                 <div class="col-12 mb-4">
                     <div class="embed-responsive embed-responsive-16by9">
@@ -59,6 +59,6 @@ $packages = $stmt->fetchAll(); // Menyimpan hasil query ke dalam array $packages
 <?php include 'footer.php'; ?> <!-- Mengimpor file 'footer.php' yang berisi elemen footer -->
 
 <!-- Menyertakan skrip Bootstrap untuk interaktivitas halaman -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
