@@ -2,7 +2,7 @@
 require 'db.php';
 
 // Mengambil semua pesanan
-$stmt = $pdo->query('SELECT pesanan.*, paket_wisata.nama AS paket_nama FROM pesanan JOIN paket_wisata ON pesanan.paket_id = paket_wisata.id');
+$stmt = $pdo->query('SELECT pesanan.*, paket_wisata.nama AS paket_nama FROM pesanan JOIN paket_wisata ON pesanan.paket_id = paket_wisata.id ORDER BY pesanan.id');
 $orders = $stmt->fetchAll();
 ?>
 

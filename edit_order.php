@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" class="form-control" id="total" name="total" value="<?= 'Rp. ' . number_format($order['total'], 2) ?>" readonly>
         </div>
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <button type="submit" class="btn btn-primary">Simpan perubahan</button>
             </div>
             <div class="col-md-1">
@@ -157,7 +157,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </form>
 </div>
-<?php include 'footer.php'; ?>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script >
