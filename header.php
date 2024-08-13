@@ -22,10 +22,14 @@
                     <h5>Pesan Paket Wisatamu Sekarang Juga!</h5>
                 </div>
             </div>
-            <nav class="mt-2">
-                <a href="index.php" class="nav-link text-white mx-3">Beranda</a>
-                <a href="booking.php" class="nav-link text-white mx-3">Form Pemesanan</a>
-                <a href="orders.php" class="nav-link text-white mx-3">Daftar Pesanan</a>
+            <nav class="mt-2 navbar navbar-dark bg-success">
+                <div class="container">
+                    <div class="d-flex">
+                        <a href="index.php" class="nav-link text-white mx-3">Beranda</a>
+                        <a href="booking.php" class="nav-link text-white mx-3">Form Pemesanan</a>
+                        <a href="orders.php" class="nav-link text-white mx-3">Daftar Pesanan</a>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
